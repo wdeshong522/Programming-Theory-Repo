@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4462476694195169965}
   - component: {fileID: 4462476694195169966}
   - component: {fileID: 4462476694195169963}
-  - component: {fileID: -6326401492208432460}
   - component: {fileID: -2886061950679720052}
+  - component: {fileID: 8094869990010439413}
   m_Layer: 0
   m_Name: Frisbee
   m_TagString: Toys
@@ -100,21 +100,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6326401492208432460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4462476694195169968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7ab888035f28940ab3189ba343f60f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 4294794924490935184, guid: 32db46eab7ccf8e4d8d423c46a43cb9d, type: 3}
-  toyWeight: 3
-  changedSpeed: 0
 --- !u!65 &-2886061950679720052
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,3 +113,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &8094869990010439413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4462476694195169968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288d18c6157361e49b28bfcec2753ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControllerScript: {fileID: 0}
+  objectWeight: 0

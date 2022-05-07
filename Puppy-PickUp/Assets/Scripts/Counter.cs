@@ -10,11 +10,11 @@ public class Counter : MonoBehaviour
     public TextMeshProUGUI CounterText;
     public int Count;
 
-    private GameManager gameManagerScript;
+    private PlayerController playerControllerScript;
 
     private void Start()
     {
-        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         
     }
 
@@ -23,5 +23,6 @@ public class Counter : MonoBehaviour
         Count -= 1;
         CounterText.text = "Toys Remaining: " + Count;
         Destroy(other.gameObject);
+        playerControllerScript.playerSpeed = playerControllerScript.defaultSpeed;
     }
 }

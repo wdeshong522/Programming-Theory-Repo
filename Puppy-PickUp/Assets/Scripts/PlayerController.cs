@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     public float playerSpeed = 10.0f;
     public float defaultSpeed = 10.0f;
+    public bool changedSpeed = false;
+    public float pickedUpObjectWeight;
 
     public float pickUpRange = 1.5f;
     public bool pickedUp = false;
@@ -33,36 +35,29 @@ public class PlayerController : MonoBehaviour
         if (gameManagerScript.isGameActive)
         {
             MovePlayer();
-
             if (Input.GetKey(KeyCode.Space))
             {
                 if (heldObj == null)
                 {
                     RaycastHit hit;
                     Vector3 centerOfSphere1 = transform.position;
-
                     if (Physics.SphereCast(centerOfSphere1, playerCollider.radius, transform.forward, out hit, pickUpRange) && hit.transform.CompareTag("Toys"))
                     {
 
                         PickupObject(hit.transform.gameObject);
                     }
-
                 }
-
                 if (heldObj != null)
                 {
                     MoveObject();
+                    ChangePlayerSpeed();
                 }
             }
             else if (heldObj != null)
             {
                 DropObject();
             }
-
-
-            
         }
-         
     }
 
 
@@ -85,6 +80,9 @@ public class PlayerController : MonoBehaviour
 
     void PickupObject(GameObject pickObj)
     {
+        PickupObjects objectScript = pickObj.GetComponent<PickupObjects>();
+        pickedUpObjectWeight = objectScript.SetObjectWeight();
+
         pickedUp = true;
         if (pickObj.GetComponent<Rigidbody>())
         {
@@ -105,15 +103,14 @@ public class PlayerController : MonoBehaviour
 
     void MoveObject()
     {
-
-        //heldObj.transform.position = (transform.position + transform.forward + transform.up);
         heldObj.transform.position = (holdParent.position);
-
     }
 
     void DropObject()
     {
         pickedUp = false;
+        pickedUpObjectWeight = 0;
+        changedSpeed = false;
         playerSpeed = defaultSpeed;
         Rigidbody heldRig = heldObj.GetComponent<Rigidbody>();
         heldRig.isKinematic = false;
@@ -122,5 +119,17 @@ public class PlayerController : MonoBehaviour
 
         heldObj.transform.parent = null;
         heldObj = null;
+    }
+
+    void ChangePlayerSpeed()
+    {
+        float newPlayerSpeed;
+        newPlayerSpeed = defaultSpeed - pickedUpObjectWeight;
+
+        if (pickedUp == true && changedSpeed == false)
+        {
+            changedSpeed = true;
+            playerSpeed = newPlayerSpeed;
+        }
     }
 }

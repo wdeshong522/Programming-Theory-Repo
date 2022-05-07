@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6357892739361245523}
   - component: {fileID: 6357892739361245522}
   - component: {fileID: 6357892739361245526}
-  - component: {fileID: -8206312194907371741}
+  - component: {fileID: 7944727557947503880}
   m_Layer: 0
   m_Name: Bone
   m_TagString: Toys
@@ -94,10 +94,10 @@ BoxCollider:
   m_GameObject: {fileID: 6357892739361245517}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.2032871, y: 0.57523966, z: 1}
+  m_Center: {x: -0.000000029802322, y: -0.011177778, z: 2.019484e-28}
 --- !u!54 &6357892739361245526
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-8206312194907371741
+--- !u!114 &7944727557947503880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,12 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6357892739361245517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7ab888035f28940ab3189ba343f60f, type: 3}
+  m_Script: {fileID: 11500000, guid: 67f69c275d897864b90a3add18d102da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4294794924490935184, guid: 32db46eab7ccf8e4d8d423c46a43cb9d, type: 3}
-  toyWeight: 2
-  changedSpeed: 0
+  objectWeight: 0
+  playerCollider: {fileID: 0}
 --- !u!1001 &7799925080631869633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,7 +216,7 @@ BoxCollider:
   m_GameObject: {fileID: 7799519412425772037}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2071304, y: 0.19423498, z: 0.32559663}
   m_Center: {x: 0, y: 0, z: -0.000000044703484}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6361614189791707771}
   - component: {fileID: 6361614189791707770}
   - component: {fileID: 6361614189791707774}
-  - component: {fileID: 6768835131394257649}
+  - component: {fileID: -5242284458587859512}
   m_Layer: 0
   m_Name: Tennis Ball
   m_TagString: Toys
@@ -113,7 +113,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6768835131394257649
+--- !u!114 &-5242284458587859512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,9 +122,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6361614189791707765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7ab888035f28940ab3189ba343f60f, type: 3}
+  m_Script: {fileID: 11500000, guid: add49003635973e40b96189d7ec6daf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4294794924490935184, guid: 32db46eab7ccf8e4d8d423c46a43cb9d, type: 3}
-  toyWeight: 1
-  changedSpeed: 0
+  objectWeight: 0
+  player: {fileID: 0}

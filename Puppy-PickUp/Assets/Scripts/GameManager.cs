@@ -7,8 +7,7 @@ using UnityEngine.UI;
 using System;
 
 public class GameManager : MonoBehaviour
-{
-    public List<GameObject> toys;
+{ 
     private Counter counterScript;
 
     public TextMeshProUGUI timeText;
@@ -16,31 +15,34 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public GameObject titleScreen;
+    public GameObject pauseScreen;
+    private bool paused;
 
-    public int level;
+    public List<GameObject> toys;
+    
     public int toysSpawned;
+    public int level;
+    public bool completedLevel = false;
+    public int maxLevel;
     private int timeRemaining;
     public bool isGameActive;
     private int timeAddedForCompletion = 15;
 
-    private float xSpawnRangeMin = -20.0f;
-    private float xSpawnRangeMax = 18.0f;
-    private float zSpawnRangeMin = -4.5f;
-    private float zSpawnRangeMax = 9.0f;
+    public static GameManager Instance;
 
-    public GameObject pauseScreen;
-    private bool paused;
-    private bool completedLevel = false;
-    private int maxLevel;
+    private void Awake()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         counterScript = GameObject.Find("Box").GetComponent<Counter>();
         level = 1;
-
         CalculateMaxLevel();
-        
+        StartGame();
     }
        
 
@@ -57,39 +59,6 @@ public class GameManager : MonoBehaviour
             IncrementLevel();
         }
     }
-
-    void SpawnToys(int levelNum)
-    {
-        
-        toysSpawned = 0;
-        int toyCount = toys.Count;
-        string output = Convert.ToString(levelNum, 2);
-        Char[] letters = output.ToCharArray();
-        
-        for (int i = 0; i < letters.Length; i++)
-        {
-            int intLetter = letters[letters.Length - i - 1] - '0';
-            if (intLetter == 1)
-            {
-                Instantiate(toys[i], GenerateSpawnPosition(), toys[i].transform.rotation);
-                toysSpawned++;
-            }
-
-        }
-        counterScript.Count = toysSpawned;
-        
-    }
-
-    private Vector3 GenerateSpawnPosition()
-    {
-        float spawnPosX = UnityEngine.Random.Range(xSpawnRangeMin, xSpawnRangeMax);
-        float spawnPosZ = UnityEngine.Random.Range(zSpawnRangeMin, zSpawnRangeMax);
-
-        Vector3 randomPos = new Vector3(spawnPosX, 0.3f, spawnPosZ);
-
-        return randomPos;
-    }
-
     public void GameOver()
     {
         isGameActive = false;
@@ -112,8 +81,8 @@ public class GameManager : MonoBehaviour
         isGameActive = true;
         timeRemaining = 60;
 
-        titleScreen.gameObject.SetActive(false);
         SpawnToys(level);
+        titleScreen.gameObject.SetActive(false);
         UpdateTime(timeRemaining);
         StartCoroutine(TimeCountdown(timeRemaining));
         counterScript.CounterText.text = "Toys Remaining: " + counterScript.Count;
@@ -163,25 +132,62 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-
-    void CalculateMaxLevel()
-    {
-        maxLevel = (int)(Math.Pow(2, toys.Count) - 1);
-    }
-
     void IncrementLevel()
     {
         completedLevel = true;
         level++;
         if (level <= maxLevel)
         {
-            timeRemaining += timeAddedForCompletion;
             SpawnToys(level);
+            timeRemaining += timeAddedForCompletion;
             counterScript.CounterText.text = "Toys Remaining: " + counterScript.Count;
         }
         else if (level > maxLevel)
         {
             GameOver();
         }
+    }
+
+
+
+
+    public void SpawnToys(int levelNum)
+    {
+        toysSpawned = 0;
+        int toyCount = toys.Count;
+        string output = Convert.ToString(levelNum, 2);
+        Char[] letters = output.ToCharArray();
+
+        for (int i = 0; i < letters.Length; i++)
+        {
+            int intLetter = letters[letters.Length - i - 1] - '0';
+            if (intLetter == 1)
+            {
+                Instantiate(toys[i], GenerateSpawnPosition(), toys[i].transform.rotation);
+                toysSpawned++;
+            }
+
+        }
+        counterScript.Count = toysSpawned;
+    }
+
+    private Vector3 GenerateSpawnPosition()
+    {
+        float xSpawnRangeMin = -20.0f;
+        float xSpawnRangeMax = 18.0f;
+        float zSpawnRangeMin = -4.5f;
+        float zSpawnRangeMax = 9.0f;
+
+        float spawnPosX = UnityEngine.Random.Range(xSpawnRangeMin, xSpawnRangeMax);
+        float spawnPosZ = UnityEngine.Random.Range(zSpawnRangeMin, zSpawnRangeMax);
+
+        Vector3 randomPos = new Vector3(spawnPosX, 0.3f, spawnPosZ);
+
+        return randomPos;
+    }
+
+    void CalculateMaxLevel()
+    {
+        maxLevel = (int)(Math.Pow(2, toys.Count) - 1);
     }
 }
